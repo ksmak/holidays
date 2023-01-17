@@ -1,5 +1,6 @@
 # Django modules
 from django.shortcuts import render
+from django.http import HttpRequest, HttpResponse
 from django.views.generic import (
     ListView,
     DetailView,
@@ -7,10 +8,15 @@ from django.views.generic import (
     CreateView,
     DeleteView,
 )
+from django.conf import settings
 # Project modules
 from .models import Holiday
 from .forms import HolidayForm
 from dictionaries.models import Department, Management
+# Thrid part modules
+import os
+from docx import Document
+import uuid
 
 
 class HolidayCreateView(CreateView):
@@ -58,7 +64,26 @@ class HolidayListView(ListView):
         return context
 
 
+def print_doc(requiest: HttpRequest, pk: int):
 
+    hd = Holiday.objects.get(id=pk)
+
+    doc = Document(os.path.join(settings.UPLOAD_PATH, 'blank.docx'))
+    
+    file_name = os.path.join(settings.UPLOAD_PATH, str(uuid.uuid4()) + '.docx')
+
+    fields = [f.name for f in Holiday._meta.get_fields()]
+
+    for field in fields:
+        for paragraph in doc.paragraphs:
+            paragraph.text = paragraph.text.replace(
+                f"[{field}]",
+                str(getattr(hd, field))
+            )
+
+    doc.save(file_name)
+    
+    return HttpResponse(f"<a href={file_name}>Открыть документ</a>")
 
 
 

@@ -7,6 +7,7 @@ from .views import (
     HolidayDetailView,
     HolidayDeleteView,
     HolidayListView,
+    print_doc
 )
 
 urlpatterns = [
@@ -15,4 +16,5 @@ urlpatterns = [
     path('edit/<int:pk>/', HolidayUpdateView.as_view(), name='edit'),
     path('detail/<int:pk>/', HolidayDetailView.as_view(), name='detail'),
     path('delete/<int:pk>/', HolidayDeleteView.as_view(), name='delete'),
+    path('print/<int:pk>/', print_doc, name='print'),
 ]
