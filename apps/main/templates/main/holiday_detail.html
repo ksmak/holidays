@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+
+{% block title %}Отпуска{% endblock %}
+
+{% block toolbar %}
+    <a href="{% url 'edit' pk=object.pk %}"><button>Редактировать</button></a>
+    <a href="{% url 'delete' pk=object.pk %}"><button>Удалить</button></a>
+    <a href="/"><button>Закрыть</button></a>
+{% endblock %}
+
+{% block content %}
+    <h1>Отпуск</h1>
+    <div class="card">
+        <div class="line"><span class="label">Номер: </span>{{object.number}}</div>
+        <div class="line"><span class="label">Подразделение: </span>{{object.department}}</div>
+        <div class="line"><span class="label">Служба: </span>{{object.management}}</div>
+        <div class="line"><span class="label">Фамилия: </span>{{object.last_name}}</div>
+        <div class="line"><span class="label">Имя: </span>{{object.first_name}}</div>
+        <div class="line"><span class="label">Отчество: </span>{{object.middle_name}}</div>
+    </div>
+{% endblock %}

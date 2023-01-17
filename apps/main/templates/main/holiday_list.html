@@ -1,0 +1,55 @@
+{% extends "main/base.html" %}
+
+{% block title %}Отпуска{% endblock %}
+
+{% block toolbar %}
+    <a href="{% url 'create' %}"><button>Добавить</button></a>
+{% endblock %}
+
+{% block content %}
+    <h1>Отпуска</h1>
+    <table>
+        <colgroup span="6">
+            <col style="width: 105px">
+            <col style="width: 350px">
+            <col style="width: 300px">
+            <col style="width: 125px">
+            <col style="width: 125px">
+            <col style="width: 125px">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Номер</th>
+                <th>Подразделение</th>
+                <th>Служба</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for holiday in holidays %}
+            <tr>
+                <td>
+                    <a href="{% url 'detail' pk=holiday.pk %}">{{ holiday.number}}</a>
+                </td>
+                <td>
+                    <a href="{% url 'detail' pk=holiday.pk %}">{{ holiday.department }}</a> 
+                </td>
+                <td>
+                    <a href="{% url 'detail' pk=holiday.pk %}">{{ holiday.management }}</a>
+                </td>
+                <td>
+                    <a href="{% url 'detail' pk=holiday.pk %}">{{ holiday.last_name }}</a>
+                </td>
+                <td>
+                    <a href="{% url 'detail' pk=holiday.pk %}">{{ holiday.first_name }}</a>
+                </td>
+                <td>
+                    <a href="{% url 'detail' pk=holiday.pk %}">{{ holiday.middle_name }}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

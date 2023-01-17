@@ -1,0 +1,61 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: darkgray;
+}
+
+.content {
+    width: 80%;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: azure;
+    border-left: 2px solid gray;
+    border-right: 2px solid gray;
+}
+
+h1 {
+    text-align: center;
+    padding: 20px;
+}
+
+table, th, td, tr {
+    border: 1px solid darkgrey;
+    border-collapse: collapse;
+    margin-left: 5px;
+}
+
+th, td {
+    border-color: #96D4D4;
+    padding: 10px;
+    font-size: 10pt;
+}
+
+thead {
+    height: 50px;
+    color: white;
+    background-color: deepskyblue;
+}
+
+tr:nth-child(even) {
+    background-color: #D6EEEE;
+}
+
+.card {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.line {
+    padding: 5px;
+}

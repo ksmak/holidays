@@ -1,0 +1,20 @@
+{% extends "main/base.html" %}
+
+{% block title %}Отпуска{% endblock %}
+
+{% block toolbar %}
+    {% if object %}
+        <a href="{% url 'detail' pk=object.pk %}"><button>Отмена</button></a>
+    {% else %}
+        <a href="/"><button>Отмена</button></a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1>Отпуск</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Сохранить">
+    </form> 
+{% endblock %}
