@@ -1,8 +1,5 @@
-# Python modules
-from typing import Any
 # Django modules
 from django.contrib import admin
-from django.utils import timezone
 # Project modules
 from .models import Holiday
 
@@ -84,22 +81,6 @@ class HolidayAdmin(admin.ModelAdmin):
         'first_name',
         'middle_name'
     )
-
-    def save_model(
-        self,
-        request: Any,
-        obj: Holiday,
-        form: Any,
-        change: Any
-    ) -> None:
-        if not change:
-            obj.create_date = timezone.now()
-            obj.create_user = request.user
-        else:
-            obj.change_date = timezone.now()
-            obj.change_user = request.user
-
-        return super().save_model(request, obj, form, change)
 
 
 admin.site.register(Holiday, HolidayAdmin)

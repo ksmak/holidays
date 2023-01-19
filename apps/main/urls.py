@@ -11,7 +11,7 @@ from .views import (
 )
 
 urlpatterns = [
-    path('', HolidayListView.as_view()),
+    path('', HolidayListView.as_view(), name='list'),
     path('create/', HolidayCreateView.as_view(), name='create'),
     path('edit/<int:pk>/', HolidayUpdateView.as_view(), name='edit'),
     path('detail/<int:pk>/', HolidayDetailView.as_view(), name='detail'),

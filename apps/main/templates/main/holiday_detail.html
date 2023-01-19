@@ -1,22 +1,36 @@
 {% extends "main/base.html" %}
 
-{% block title %}Отпуска{% endblock %}
+{% block title %}Демалыс куәлігі{% endblock %}
 
 {% block toolbar %}
-    <a href="{% url 'edit' pk=object.pk %}"><button>Редактировать</button></a>
-    <a href="{% url 'print' pk=object.pk %}"><button>Печать</button></a>
-    <a href="{% url 'delete' pk=object.pk %}"><button>Удалить</button></a>
-    <a href="/"><button>Закрыть</button></a>
+    <a href="{% url 'edit' pk=object.pk %}"><button class="btn__edit">Өңдеу</button></a>
+    <a href="{% url 'print' pk=object.pk %}"><button class="btn__print">MS Word шығару</button></a>
+    <a href="{% url 'delete' pk=object.pk %}"><button class="btn__delete">Жою</button></a>
+    <a href="/"><button class="btn__escape">Жабу</button></a>
+    <h1>Демалыс куәлігі</h1>
+    <hr>
 {% endblock %}
 
 {% block content %}
-    <h1>Отпуск</h1>
     <div class="card">
-        <div class="line"><span class="label">Номер: </span>{{object.number}}</div>
-        <div class="line"><span class="label">Подразделение: </span>{{object.department}}</div>
-        <div class="line"><span class="label">Служба: </span>{{object.management}}</div>
-        <div class="line"><span class="label">Фамилия: </span>{{object.last_name}}</div>
-        <div class="line"><span class="label">Имя: </span>{{object.first_name}}</div>
-        <div class="line"><span class="label">Отчество: </span>{{object.middle_name}}</div>
+        <div class="line"><span class="label">№: </span>{{object.number}}</div>
+        <div class="line"><span class="label">Берілген күні: </span>{{object.date_enter|date:"d.m.Y"}}</div>
+        <div class="line"><span class="label">Демалыс мерзімі: </span>{{object.date_start|date:"d.m.Y"}} - {{object.date_end|date:"d.m.Y"}}</div>
+        <div class="line"><span class="label">Бөлімі: </span>{{object.department}}</div>
+        <div class="line"><span class="label">Қызметі: </span>{{object.management}}</div>
+        <div class="line"><span class="label">Тегі: </span>{{object.last_name|title}}</div>
+        <div class="line"><span class="label">Аты: </span>{{object.first_name|title}}</div>
+        <div class="line"><span class="label">Әкесінің аты: </span>{{object.middle_name|title}}</div>
+        <div class="line"><span class="label">Атағы: </span>{{object.degree}}</div>
+        <div class="line"><span class="label">Лауазымы: </span>{{object.job}}</div>
+        <div class="line"><span class="label">Баратын жері: </span>{{object.place}}</div>
+    </div>
+    <div class="card__info">
+        <div>
+            жасалды: {{object.create_user|default:""}}, {{object.create_date|date:"d.m.Y H:i:s"}}
+        </div>
+        <div>
+            өзгертілді: {{object.change_user|default:""}}, {{object.change_date|date:"d.m.Y H:i:s"}}
+        </div>
     </div>
 {% endblock %}

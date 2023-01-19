@@ -1,12 +1,12 @@
 {% extends "main/base.html" %}
 
-{% block title %}Удаление{% endblock %}
+{% block title %}Құжатты жою{% endblock %}
 
 {% block content %}
-    <h1>Удалить данный документ?</h1>
-    <form method="post">
+    <h1>Бұл құжат жойылсын ба?</h1>
+    <form method="post" class="delete__form">
         {% csrf_token %}
-        <input type="submit" value="Удалить">
+        <input type="submit" value="Жою" class="btn__delete">
+        <button onclick="window.history.back();" class="btn__escape" type="button">Бас тарту</button>
     </form> 
-    <a href="{% url 'detail' pk=object.pk %}"><button>Отмена</button></a>
 {% endblock %}

@@ -2,60 +2,206 @@
     margin: 0px;
     padding: 0px;
 }
-
 body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: darkgray;
 }
-
+.toolbar {
+    padding-top: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 200px;
+}
+.toolbar__line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.right__label {
+    text-align: end;
+    margin-right: 10px;
+    font-size: 9pt;
+    color: black;
+}
+button, input[type='submit'] {
+    width: 160px;
+    color: white;
+    font-weight: 700;
+    font-size: 12pt;
+    padding: 10px;
+    border: 1px solid darkgrey;
+    border-radius: 5px;
+}
+.btn__create {
+    width: auto;
+    background-color: deepskyblue;
+}
+input[type='submit'].btn__delete, .btn__delete {
+    background-color: red;
+}
+.btn__escape {
+    background-color: gray;
+}
+input[type='submit'].btn__save, .btn__edit {
+    background-color: deepskyblue;
+}
+.btn__print {
+    background-color: mediumseagreen;
+}
+button:hover, input[type='submit']:hover {
+    cursor: pointer;
+    border: 1px solid whitesmoke;
+}
 .content {
     width: 80%;
     height: 100vh;
+    /* padding-top: 30px; */
     margin-left: auto;
     margin-right: auto;
     background-color: azure;
     border-left: 2px solid gray;
     border-right: 2px solid gray;
 }
-
-h1 {
+h1, h2 {
     text-align: center;
     padding: 20px;
 }
+p {
+    margin-left: 15px;
+}
+hr {
+    height: 2px;
+    background-color: deepskyblue;
+    /* margin-bottom: 10px; */
+}
+.scroll__panel {
+    width: 100%;
+    height: calc(100vh - 220px);
+    overflow-y: scroll;
+}
+.login__form {
+    width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 14pt;
+}
+.login__table {
+    padding: 20px;
+    border: 1px solid lightblue;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.login__table td {
+    padding: 10px;
+}
+.error {
+    color: red;
+}
+.login_btn_enter {
+    text-align: center;
+}
 
-table, th, td, tr {
+.login_btn_enter input[type='submit'] {
+    width: 300px;
+}
+table tbody tr td a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: black;
+}
+.main__table, .main__table th, .main__table td, .main__table tr {
     border: 1px solid darkgrey;
     border-collapse: collapse;
     margin-left: 5px;
+    margin-right: 5px;
 }
-
-th, td {
+.main__table th, .main__table td {
     border-color: #96D4D4;
     padding: 10px;
     font-size: 10pt;
 }
-
-thead {
+.main__table thead {
     height: 50px;
     color: white;
     background-color: deepskyblue;
 }
-
-tr:nth-child(even) {
+.main__table tr:nth-child(even) {
     background-color: #D6EEEE;
 }
-
-.card {
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid black;
-    border-radius: 10px;
+.main__table th:hover {
+    cursor: pointer;
 }
-
+.card__info {
+    text-align: right;
+    margin-right: 20px;
+    font-size: 9pt;
+    font-weight: 700;
+}
+.card {
+    margin: 5px;
+    padding: 10px;
+}
 .label {
     font-weight: bold;
 }
-
 .line {
     padding: 5px;
+}
+.field__wraper {
+    margin-left: 10px;
+}
+input, select, label {
+    padding: 5px;
+    font-size: 12pt;
+}
+label {
+    font-weight: 700;
+}
+#id_first_name, #id_last_name, #id_middle_name, #id_job, #id_place {
+    width: 450px;
+}
+.delete__form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.filter__panel {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.filter__panel input, .filter__panel select {
+    font-size: 9pt;
+    padding: 3px;
+}
+.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.current_page {
+    padding: 5px;
+    font-size: 10pt;
+    border: 1px #96D4D4 solid;
+    background-color: deepskyblue;
+    margin-left: 5px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+.page {
+    padding: 5px;
+    font-size: 10pt;
+    border: 1px #96D4D4 solid;
+    background-color: white;
+    margin-left: 5px;
+    color: #96D4D4;
+    text-decoration: none;
+    cursor: pointer;
 }

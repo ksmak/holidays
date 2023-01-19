@@ -32,7 +32,8 @@ class CustomUserAdmin(UserAdmin):
             (
                 'is_active',
                 'is_staff',
-                'is_superuser'
+                'is_superuser',
+                'groups'
             )
         })
     )
@@ -62,7 +63,8 @@ class CustomUserAdmin(UserAdmin):
             (
                 'is_active',
                 'is_staff',
-                'is_superuser'
+                'is_superuser',
+                'groups'
             )
         })
     )
