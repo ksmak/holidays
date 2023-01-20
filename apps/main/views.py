@@ -113,7 +113,7 @@ class HolidayListView(LoginRequiredMixin, ListView):
     """ Holiday list view """
     model = Holiday
 
-    paginate_by = 2
+    paginate_by = 200
 
     paginator_class = HolidayPaginator
 

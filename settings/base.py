@@ -23,7 +23,8 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'debug_toolbar'
+    'debug_toolbar',
+    'django_windows_tools',
 ]
 
 PROJECT_APPS = [
