@@ -10,15 +10,15 @@ class HolidayForm(forms.ModelForm):
     date_enter = forms.DateField(
         label='Берілген күні',
         widget=forms.widgets.DateInput(
-            format=('%Y-%m-%d'),
+            format='%Y-%m-%d',
             attrs={'type': 'date'}
-        )
+        ),
     )
 
     date_start = forms.DateField(
         label='Басталу күні',
         widget=forms.widgets.DateInput(
-            format=('%Y-%m-%d'),
+            format='%Y-%m-%d',
             attrs={'type': 'date'}
         )
     )
@@ -26,7 +26,7 @@ class HolidayForm(forms.ModelForm):
     date_end = forms.DateField(
         label='Аяқталу күні',
         widget=forms.widgets.DateInput(
-            format=('%Y-%m-%d'),
+            format='%Y-%m-%d',
             attrs={'type': 'date'}
         )
     )

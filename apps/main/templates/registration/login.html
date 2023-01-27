@@ -1,21 +1,30 @@
 {% extends "main/base.html" %}
 
-{% block title %}Жүйеге кіру{% endblock %}
+{% load i18n %}
+
+{% block title %}{% blocktrans %} Вход в систему {% endblocktrans %}{% endblock %}
 
 {% block content %}
+
+{% trans 'Вход в систему' as tr_title %}
+{% trans 'Вход выполнен' as tr_user_is_entered %}
+{% trans 'Имя пользователя' as tr_username %}
+{% trans 'Пароль' as tr_password %}
+{% trans 'Войти' as tr_enter %}
+
 {% if user.is_authenticated %}
-    <p>Кіріс жасалынды</p>
+    <p>{{ tr_user_is_entered }}</p>
 {% else %}
     <form method="post" class="login__form">
-        <h1>Жүйеге кіру</h1>
+        <h1>{{ tr_title }}</h1>
         {% csrf_token %}
         <table class="login__table">
             <tr>
-                <td>Логин: </td>
+                <td>{{ tr_username }}: </td>
                 <td>{{ form.username }}</td>
             </tr>
             <tr>
-                <td>Пароль: </td>
+                <td>{{ tr_password }}: </td>
                 <td>{{ form.password }}</td>
             </tr>
         </table>
@@ -24,7 +33,7 @@
         </div>
         <input type="hidden" name="next" value="{{next}}">
         <div class="login_btn_enter">
-            <input type="submit" value="Кіру" class="btn__edit">
+            <input type="submit" value="{{ tr_enter }}" class="btn__edit">
         </div>
     </form>
 {% endif %}

@@ -7,6 +7,7 @@ from django.http import (
     HttpRequest,
     HttpResponse,
     Http404,
+    HttpResponseRedirect
 )
 from django.views.generic import (
     ListView,
@@ -205,8 +206,4 @@ def print_doc(requiest: HttpRequest, pk: int):
         return response
     
     raise Http404
-
-
-
-
 

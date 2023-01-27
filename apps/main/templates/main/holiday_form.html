@@ -1,15 +1,19 @@
 {% extends "main/base.html" %}
 
-{% block title %}Демалыс куәлігі{% endblock %}
+{% load i18n %}
+
+{% block title %}{% blocktrans %}Отпускное удостоверение{% endblocktrans %}{% endblock %}
 
 {% block toolbar %}
-    <input type="submit" value="Сақтау" form="holiday_form" class="btn__save">
+    <input type="submit" value="{% trans 'Сохранить' %}" form="holiday_form" class="btn__save">
+    {% trans 'Отмена' as tr_escape %}
     {% if object %}
-        <a href="{% url 'detail' pk=object.pk %}"><button class="btn__escape">Бас тарту</button></a>
+        <a href="{% url 'detail' pk=object.pk %}">
+            <button class="btn__escape">{{ tr_escape }}</button></a>
     {% else %}
-        <a href="/"><button class="btn__escape">Бас тарту</button></a>
+        <a href="/"><button class="btn__escape">{{ tr_escape }}</button></a>
     {% endif %}
-    <h1>Демалыс куәлігі</h1>
+    <h1>{% trans 'Отпускное удостоверение' %}</h1>
     <hr>
 {% endblock %}
 
@@ -25,13 +29,17 @@
             </div>
             <br>
             <div class="field__wrapper">
-                <label for="{{ form.date_enter.id_for_label }}">Берілген күні:</label>
+                <label for="{{ form.date_enter.id_for_label }}">
+                    {% trans 'Дата выдачи:' %}
+                </label>
                 {{ form.date_enter }}
                 {{ form.date_enter.errors }}
             </div>
             <br>
             <div class="field__wrapper">
-                <label>Демалыс мерзімі:</label>
+                <label>
+                    {% trans 'Дата отпуска:' %}
+                </label>
                 {{ form.date_start }}
                 <label for="{{ form.date_start.id_for_label }}">  -  </label>
                 {{ form.date_end }}
@@ -40,49 +48,65 @@
             </div>
             <br>
             <div class="field__wrapper">
-                <label for="{{ form.department.id_for_label }}">Бөлімі:</label>
+                <label for="{{ form.department.id_for_label }}">
+                    {% trans 'Подразделение:' %}
+                </label>
                 {{ form.department }}
                 {{ form.department.errors }}
             </div>
             <br>
             <div class="field__wrapper">
-                <label for="{{ form.management.id_for_label }}">Қызметі:</label>
+                <label for="{{ form.management.id_for_label }}">
+                    {% trans 'Служба:' %}
+                </label>
                 {{ form.management }}
                 {{ form.management.errors }}
             </div>
             <br>
             <div class="field__wrapper">
-                <label for="{{ form.last_name.id_for_label }}">Тегі:</label>
+                <label for="{{ form.last_name.id_for_label }}">
+                    {% trans 'Фамилия:' %}
+                </label>
                 {{ form.last_name }}
                 {{ form.last_name.errors }}
             </div>
             <br>
             <div class="field__wrapper">
-                <label for="{{ form.first_name.id_for_label }}">Аты:</label>
+                <label for="{{ form.first_name.id_for_label }}">
+                    {% trans 'Имя:' %}
+                </label>
                 {{ form.first_name }}
                 {{ form.first_name.errors }}
             </div>
             <br>
             <div class="field__wrapper">
-                <label for="{{ form.middle_name.id_for_label }}">Әкесінің аты:</label>
+                <label for="{{ form.middle_name.id_for_label }}">
+                    {% trans 'Отчество:' %}
+                </label>
                 {{ form.middle_name }}
                 {{ form.middle_name.errors }}
             </div>
             <br>
             <div class="field__wrapper">
-                <label for="{{ form.degree.id_for_label }}">Атағы:</label>
+                <label for="{{ form.degree.id_for_label }}">
+                    {% trans 'Звание:' %}
+                </label>
                 {{ form.degree }}
                 {{ form.degree.errors }}
             </div>
             <br>
             <div class="field__wrapper">
-                <label for="{{ form.job.id_for_label }}">Лауазымы:</label>
+                <label for="{{ form.job.id_for_label }}">
+                    {% trans 'Должность:' %}
+                </label>
                 {{ form.job }}
                 {{ form.job.errors }}
             </div>
             <br>
             <div class="field__wrapper">
-                <label for="{{ form.place.id_for_label }}">Баратын жері:</label>
+                <label for="{{ form.place.id_for_label }}">
+                    {% trans 'Направление:' %}
+                </label>
                 {{ form.place }}
                 {{ form.place.errors }}
             </div>

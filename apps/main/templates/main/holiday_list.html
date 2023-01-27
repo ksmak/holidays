@@ -1,24 +1,31 @@
 {% extends "main/base.html" %}
 
-{% block title %}Демалыс куәліктері{% endblock %}
+{% load i18n %}
+
+{% block title %}{% blocktrans %}Отпускные удостоверения{% endblocktrans %}{% endblock %}
 
 {% block toolbar %}
     <div class="toolbar__line">
-        <a href="{% url 'create' %}"><button class="btn__create">Жаңа куәлікті енгізу</button></a>
+        <a href="{% url 'create' %}">
+            <button class="btn__create">
+                {% trans 'Добавить новое удостоверение' %}
+            </button>
+        </a>
         <div class="right__label">
             <div>{{ user.last_name }} {{ user.first_name }} {{ user.middle_name }}</div>
-            <div>Бүгін: {% now "d.m.Y" %}</div>
-            <a href="{% url 'logout' %}">Сайттан шығу</a>
+            <div>
+                {% trans 'Сегодня:' %} {% now "d.m.Y" %}</div>
+            <a href="{% url 'logout' %}">{% trans 'Выйти из сайта' %}</a>
         </div>
     </div>
-    <h1>Демалыс куәліктері</h1>
+    <h1>{% trans 'Отпускные удостоверения' %}</h1>
     <hr>
     <form action="/" method="get" class="filter__panel" name="filter_and_order">
         <input type="hidden" name="order_by" value="{{order_by}}">
         <input type="hidden" name="page" value="{{page}}">
-        <input type="text" name="ft_name" id="ft_name" placeholder="Т.А.Ә. бойынша" value="{{ft_name}}">
+        <input type="text" name="ft_name" id="ft_name" placeholder="{% trans 'по Ф.И.О.' %}" value="{{ft_name}}">
         <select name="ft_department" id="ft_department">
-            <option value="">Бөлімі бойынша</option>
+            <option value="">{% trans 'по подразделению' %}</option>
             {% for department in departments %}
                 {% if department.id|stringformat:"i" == ft_department %}
                     <option value="{{department.id}}" selected>{{ department.title }}</option>
@@ -28,7 +35,7 @@
             {% endfor %}
         </select>
         <select name="ft_management" id="ft_management">
-            <option value="">Қызметы боыйнша</option>
+            <option value="">{% trans 'по службе' %}</option>
             {% for management in managements %}
                 {% if management.id|stringformat:"i" == ft_management %}
                     <option value="{{management.id}}" selected>{{management.title}}</option>
@@ -37,7 +44,7 @@
                 {% endif %}
             {% endfor %}    
         </select>
-        <input type="submit" value="Іздеу" class="btn__edit">
+        <input type="submit" value="{% trans 'Найти' %}" class="btn__edit">
     </form>
     <div class="pagination">
         {% for pg in paginator.page_range %}
@@ -71,25 +78,25 @@
                 <tr>
                     <th>№</th>
                     <th onclick="let form = document.forms.filter_and_order; form.order_by.value='number'; form.submit();">
-                        Нөмірі {% if order_by == 'number' %} ▲ {% endif %}
+                        {% trans 'Номер' %} {% if order_by == 'number' %} ▲ {% endif %}
                     </th>
                     <th onclick="let form = document.forms.filter_and_order; form.order_by.value='date_enter'; form.submit();">
-                        Берілген күні {% if order_by == 'date_enter' %} ▲ {% endif %}
+                        {% trans 'Дата выдачи' %} {% if order_by == 'date_enter' %} ▲ {% endif %}
                     </th>
                     <th onclick="let form = document.forms.filter_and_order; form.order_by.value='department'; form.submit();">
-                        Бөлімі {% if order_by == 'department' %} ▲ {% endif %}
+                        {% trans 'Подразделение' %} {% if order_by == 'department' %} ▲ {% endif %}
                     </th>
                     <th onclick="let form = document.forms.filter_and_order; form.order_by.value='management'; form.submit();">
-                        Қызметы {% if order_by == 'management' %} ▲ {% endif %}
+                        {% trans 'Служба' %} {% if order_by == 'management' %} ▲ {% endif %}
                     </th>
                     <th onclick="let form = document.forms.filter_and_order; form.order_by.value='first_name'; form.submit();">
-                        Т.А.Ә {% if order_by == 'first_name' %} ▲ {% endif %}
+                        {% trans 'Ф.И.О.' %} {% if order_by == 'first_name' %} ▲ {% endif %}
                     </th>
                     <th onclick="let form = document.forms.filter_and_order; form.order_by.value='degree'; form.submit();">
-                        атағы {% if order_by == 'degree' %} ▲ {% endif %}
+                        {% trans 'звание' %} {% if order_by == 'degree' %} ▲ {% endif %}
                     </th>
                     <th onclick="let form = document.forms.filter_and_order; form.order_by.value='job'; form.submit();">
-                        лауазымы {% if order_by == 'job' %} ▲ {% endif %}
+                        {% trans 'должность' %} {% if order_by == 'job' %} ▲ {% endif %}
                     </th>
                 </tr>
             </thead>

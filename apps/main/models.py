@@ -1,8 +1,9 @@
 # Django modules
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 # Project modules
-from auths.models import CustomUser
+from abstracts.models import AbstractModel
 from dictionaries.models import (
     Department,
     Management,
@@ -10,46 +11,46 @@ from dictionaries.models import (
 )
 
 
-class Holiday(models.Model):
+class Holiday(AbstractModel):
     """ Holiday model """
     number = models.IntegerField(
-        verbose_name='номер'
+        verbose_name=_('номер')
     )
 
     date_enter = models.DateField(
-        verbose_name='дата выдачи',
+        verbose_name=_('дата выдачи'),
         default=timezone.now
     )
 
     date_start = models.DateField(
-        verbose_name='дата начало',
+        verbose_name=_('дата начало'),
         default=timezone.now
     )
 
     date_end = models.DateField(
-        verbose_name='дата конец',
+        verbose_name=_('дата конец'),
         default=timezone.now
     )
 
     first_name = models.CharField(
-        verbose_name='имя',
+        verbose_name=_('имя'),
         max_length=150
     )
 
     last_name = models.CharField(
-        verbose_name='фамилия',
+        verbose_name=_('фамилия'),
         max_length=150
     )
 
     middle_name = models.CharField(
-        verbose_name='отчество',
+        verbose_name=_('отчество'),
         max_length=150
     )
 
     department = models.ForeignKey(
         to=Department,
         on_delete=models.RESTRICT,
-        verbose_name='подразделение',
+        verbose_name=_('подразделение'),
         null=True,
         blank=True
     )
@@ -57,59 +58,33 @@ class Holiday(models.Model):
     management = models.ForeignKey(
         to=Management,
         on_delete=models.RESTRICT,
-        verbose_name='служба',
+        verbose_name=_('служба'),
         null=True,
         blank=True
     )
 
     job = models.CharField(
-        verbose_name='должность',
+        verbose_name=_('должность'),
         max_length=150
     )
 
     degree = models.ForeignKey(
         to=Degree,
         on_delete=models.RESTRICT,
-        verbose_name='звание',
+        verbose_name=_('звание'),
         null=True,
         blank=True
     )
 
     place = models.CharField(
-        verbose_name='место выезда',
+        verbose_name=_('место выезда'),
         max_length=300,
         null=True,
         blank=True
     )
 
-    create_date = models.DateTimeField(
-        verbose_name='создан',
-        null=True
-    )
-
-    create_user = models.ForeignKey(
-        verbose_name='кем создан',
-        to=CustomUser,
-        on_delete=models.RESTRICT,
-        related_name='create_user',
-        null=True
-    )
-
-    change_date = models.DateTimeField(
-        verbose_name='изменен',
-        null=True
-    )
-
-    change_user = models.ForeignKey(
-        verbose_name='кем изменен',
-        to=CustomUser,
-        on_delete=models.RESTRICT,
-        related_name='change_user',
-        null=True
-    )
-
     def __str__(self) -> str:
-        return f"Отпуск: №{self.number} от {self.date_enter}"
+        return f"№{self.number} - {self.date_enter}"
 
     def save(self, *args, **kwargs):
         if self.first_name:
@@ -124,9 +99,9 @@ class Holiday(models.Model):
         return super().save(*args, **kwargs)
     
     class Meta:
-        verbose_name = 'отпуск'
-        verbose_name_plural = 'отпуска'
+        verbose_name = _('отпускное удостоверение')
+        verbose_name_plural = _('отпускные удостоверения')
         ordering = (
+            'date_enter',
             'number',
-            'date_enter'
         )

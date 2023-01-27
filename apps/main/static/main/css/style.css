@@ -79,6 +79,28 @@ hr {
     height: calc(100vh - 220px);
     overflow-y: scroll;
 }
+.languages {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-right: 10px;
+    padding-top: 10px;
+}
+.lang__box input[type="submit"] {
+    width: auto;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 5px;
+    margin-right: 5px;
+    color: white;
+    background-color: deepskyblue;
+    font-size: 11pt;
+    font-weight: 700;
+    border: 1px solid wheat;
+    border-radius: 5px;
+    cursor: pointer;
+}
 .login__form {
     width: 350px;
     margin-left: auto;

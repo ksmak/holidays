@@ -2,6 +2,8 @@
 from pathlib import Path
 import os
 import sys
+# Django modules
+from django.utils.translation import gettext_lazy as _
 # Third part modules
 from decouple import config
 
@@ -24,13 +26,13 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'debug_toolbar',
-    'django_windows_tools',
 ]
 
 PROJECT_APPS = [
     'auths.apps.AuthsConfig',
     'dictionaries.apps.DictionariesConfig',
-    'main.apps.MainConfig'
+    'main.apps.MainConfig',
+    'abstracts.apps.AbstractsConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
@@ -38,6 +40,7 @@ INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -91,9 +94,20 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru'
 
+LANGUAGES = [
+    ('ru', _('Russian')),     
+    ('kk', _('Kazakh')),
+]
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+
+USE_L10N = True
 
 USE_TZ = True
 
@@ -107,7 +121,12 @@ AUTH_USER_MODEL = 'auths.CustomUser'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'files')
 
-DATE_INPUT_FORMATS = ['%d.%m.%Y']
+DATE_FORMAT = 'd.m.Y'
+
+DATE_INPUT_FORMATS = [
+    '%Y-%m-%d',
+    '%m/%d/%Y',
+]
 
 # Debug-toolbar
 INTERNAL_IPS = (

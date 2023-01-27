@@ -1,55 +1,36 @@
-from django.db import models
+# Project modules
+from abstracts.models import AbstractDictionary
+from django.utils.translation import gettext_lazy as _
 
 
-class Department(models.Model):
+class Department(AbstractDictionary):
     """ Department model """
-    title = models.CharField(
-        verbose_name='наименование',
-        max_length=150
-    )
-
-    def __str__(self) -> str:
-        return self.title
-
+   
     class Meta:
-        verbose_name = 'подразделение',
-        verbose_name_plural = 'подразделения'
+        verbose_name = _('подразделение'),
+        verbose_name_plural = _('подразделения')
         ordering = (
             'title',
         )
 
 
-class Management(models.Model):
+class Management(AbstractDictionary):
     """ Management model """
-    title = models.CharField(
-        verbose_name='наименование',
-        max_length=150
-    )
-
-    def __str__(self) -> str:
-        return self.title
-
-    class Meta:
-        verbose_name = 'служба',
-        verbose_name_plural = 'службы'
-        ordering = (
-            'title',
-        )
-
-
-class Degree(models.Model):
-    """ Degree model """
-    title = models.CharField(
-        verbose_name='наименование',
-        max_length=150
-    )
-
-    def __str__(self) -> str:
-        return self.title
     
     class Meta:
-        verbose_name = 'звание',
-        verbose_name_plural = 'звания'
+        verbose_name = _('служба'),
+        verbose_name_plural = _('службы')
+        ordering = (
+            'title',
+        )
+
+
+class Degree(AbstractDictionary):
+    """ Degree model """
+    
+    class Meta:
+        verbose_name = _('звание'),
+        verbose_name_plural = _('звания')
         ordering = (
             'title',
         )

@@ -1,12 +1,15 @@
 {% extends "main/base.html" %}
 
-{% block title %}Құжатты жою{% endblock %}
+{% load i18n %}
+
+
+{% block title %}{% blocktrans %}Удаление документа{% endblocktrans %}{% endblock %}
 
 {% block content %}
-    <h1>Бұл құжат жойылсын ба?</h1>
+    <h1>{% trans 'Удалить данный документ?' %}</h1>
     <form method="post" class="delete__form">
         {% csrf_token %}
-        <input type="submit" value="Жою" class="btn__delete">
-        <button onclick="window.history.back();" class="btn__escape" type="button">Бас тарту</button>
+        <input type="submit" value="{% trans 'Удалить' %}" class="btn__delete">
+        <button onclick="window.history.back();" class="btn__escape" type="button">{% trans 'Отмена' %}</button>
     </form> 
 {% endblock %}
