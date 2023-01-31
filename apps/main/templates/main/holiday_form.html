@@ -2,114 +2,31 @@
 
 {% load i18n %}
 
+{% load bootstrap5 %}
+
 {% block title %}{% blocktrans %}Отпускное удостоверение{% endblocktrans %}{% endblock %}
 
 {% block toolbar %}
-    <input type="submit" value="{% trans 'Сохранить' %}" form="holiday_form" class="btn__save">
-    {% trans 'Отмена' as tr_escape %}
-    {% if object %}
-        <a href="{% url 'detail' pk=object.pk %}">
-            <button class="btn__escape">{{ tr_escape }}</button></a>
-    {% else %}
-        <a href="/"><button class="btn__escape">{{ tr_escape }}</button></a>
-    {% endif %}
-    <h1>{% trans 'Отпускное удостоверение' %}</h1>
-    <hr>
+{% buttons %}
+<button type="submit" form="holiday_form" class="btn btn-primary">
+    {% trans 'Сохранить' %}
+</button>
+{% trans 'Отмена' as tr_escape %}
+{% if object %}
+<a href="{% url 'detail' pk=object.pk %}">
+    <button class="btn btn-secondary">{{ tr_escape }}</button></a>
+{% else %}
+<a href="/"><button class="btn btn-secondary">{{ tr_escape }}</button></a>
+{% endif %}
+<h1 class="text-center">{% trans 'Отпускное удостоверение' %}</h1>
+<hr>
+{% endbuttons %}
 {% endblock %}
 
 {% block content %}
-    <form id="holiday_form" method="post">
-        <div class="card">
-            {% csrf_token %}
-            {{ form.non_field_errors }}
-            <div class="field__wrapper">
-                <label for="{{ form.number.id_for_label }}">№:</label>
-                {{ form.number }}
-                {{ form.number.errors }}
-            </div>
-            <br>
-            <div class="field__wrapper">
-                <label for="{{ form.date_enter.id_for_label }}">
-                    {% trans 'Дата выдачи:' %}
-                </label>
-                {{ form.date_enter }}
-                {{ form.date_enter.errors }}
-            </div>
-            <br>
-            <div class="field__wrapper">
-                <label>
-                    {% trans 'Дата отпуска:' %}
-                </label>
-                {{ form.date_start }}
-                <label for="{{ form.date_start.id_for_label }}">  -  </label>
-                {{ form.date_end }}
-                {{ form.date_start.errors }}
-                {{ form.date_end.errors }}
-            </div>
-            <br>
-            <div class="field__wrapper">
-                <label for="{{ form.department.id_for_label }}">
-                    {% trans 'Подразделение:' %}
-                </label>
-                {{ form.department }}
-                {{ form.department.errors }}
-            </div>
-            <br>
-            <div class="field__wrapper">
-                <label for="{{ form.management.id_for_label }}">
-                    {% trans 'Служба:' %}
-                </label>
-                {{ form.management }}
-                {{ form.management.errors }}
-            </div>
-            <br>
-            <div class="field__wrapper">
-                <label for="{{ form.last_name.id_for_label }}">
-                    {% trans 'Фамилия:' %}
-                </label>
-                {{ form.last_name }}
-                {{ form.last_name.errors }}
-            </div>
-            <br>
-            <div class="field__wrapper">
-                <label for="{{ form.first_name.id_for_label }}">
-                    {% trans 'Имя:' %}
-                </label>
-                {{ form.first_name }}
-                {{ form.first_name.errors }}
-            </div>
-            <br>
-            <div class="field__wrapper">
-                <label for="{{ form.middle_name.id_for_label }}">
-                    {% trans 'Отчество:' %}
-                </label>
-                {{ form.middle_name }}
-                {{ form.middle_name.errors }}
-            </div>
-            <br>
-            <div class="field__wrapper">
-                <label for="{{ form.degree.id_for_label }}">
-                    {% trans 'Звание:' %}
-                </label>
-                {{ form.degree }}
-                {{ form.degree.errors }}
-            </div>
-            <br>
-            <div class="field__wrapper">
-                <label for="{{ form.job.id_for_label }}">
-                    {% trans 'Должность:' %}
-                </label>
-                {{ form.job }}
-                {{ form.job.errors }}
-            </div>
-            <br>
-            <div class="field__wrapper">
-                <label for="{{ form.place.id_for_label }}">
-                    {% trans 'Направление:' %}
-                </label>
-                {{ form.place }}
-                {{ form.place.errors }}
-            </div>
-        </div>
-    </form> 
+<form id="holiday_form" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    </div>
+</form>
 {% endblock %}

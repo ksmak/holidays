@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 class Department(AbstractDictionary):
     """ Department model """
-   
+
     class Meta:
         verbose_name = _('подразделение'),
         verbose_name_plural = _('подразделения')
@@ -16,7 +16,7 @@ class Department(AbstractDictionary):
 
 class Management(AbstractDictionary):
     """ Management model """
-    
+
     class Meta:
         verbose_name = _('служба'),
         verbose_name_plural = _('службы')
@@ -27,7 +27,7 @@ class Management(AbstractDictionary):
 
 class Degree(AbstractDictionary):
     """ Degree model """
-    
+
     class Meta:
         verbose_name = _('звание'),
         verbose_name_plural = _('звания')

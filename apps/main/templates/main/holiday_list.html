@@ -2,145 +2,157 @@
 
 {% load i18n %}
 
+{% load bootstrap5 %}
+
 {% block title %}{% blocktrans %}Отпускные удостоверения{% endblocktrans %}{% endblock %}
 
 {% block toolbar %}
-    <div class="toolbar__line">
+<div class="row justify-content-between">
+    <div class="col-3">
         <a href="{% url 'create' %}">
-            <button class="btn__create">
+            {% buttons %}
+            <button class="btn btn-primary">
                 {% trans 'Добавить новое удостоверение' %}
             </button>
+            {% endbuttons %}
         </a>
+    </div>
+    <div class="col-3">
         <div class="right__label">
-            <div>{{ user.last_name }} {{ user.first_name }} {{ user.middle_name }}</div>
+            <div>{{ user.last_name|default_if_none:"" }} {{ user.first_name|default_if_none:"" }} {{ user.middle_name|default_if_none:"" }}</div>
             <div>
                 {% trans 'Сегодня:' %} {% now "d.m.Y" %}</div>
             <a href="{% url 'logout' %}">{% trans 'Выйти из сайта' %}</a>
         </div>
     </div>
-    <h1>{% trans 'Отпускные удостоверения' %}</h1>
-    <hr>
-    <form action="/" method="get" class="filter__panel" name="filter_and_order">
-        <input type="hidden" name="order_by" value="{{order_by}}">
-        <input type="hidden" name="page" value="{{page}}">
-        <input type="text" name="ft_name" id="ft_name" placeholder="{% trans 'по Ф.И.О.' %}" value="{{ft_name}}">
-        <select name="ft_department" id="ft_department">
+</div>
+<h1 class="text-center">{% trans 'Отпускные удостоверения' %}</h1>
+<hr>
+<form class="row g-3" action="/" method="get" name="filter_and_order">
+    <input type="hidden" name="order_by" value="{{order_by}}">
+    <input type="hidden" name="page" value="{{page}}">
+    <div class="col-auto">
+        <input class="form-control form-control-sm" type="text" name="ft_name" id="ft_name"
+            placeholder="{% trans 'по Ф.И.О.' %}" value="{{ft_name}}">
+    </div>
+    <div class="col-auto">
+        <select class="form-control form-control-sm" name="ft_department" id="ft_department">
             <option value="">{% trans 'по подразделению' %}</option>
             {% for department in departments %}
-                {% if department.id|stringformat:"i" == ft_department %}
-                    <option value="{{department.id}}" selected>{{ department.title }}</option>
-                {% else %}    
-                    <option value="{{department.id}}">{{ department.title }}</option>
-                {% endif %}    
+            {% if department.id|stringformat:"i" == ft_department %}
+            <option value="{{department.id}}" selected>{{ department.title }}</option>
+            {% else %}
+            <option value="{{department.id}}">{{ department.title }}</option>
+            {% endif %}
             {% endfor %}
         </select>
-        <select name="ft_management" id="ft_management">
+    </div>
+    <div class="col-auto">
+        <select class="form-control form-control-sm" name="ft_management" id="ft_management">
             <option value="">{% trans 'по службе' %}</option>
             {% for management in managements %}
-                {% if management.id|stringformat:"i" == ft_management %}
-                    <option value="{{management.id}}" selected>{{management.title}}</option>
-                {% else %}
-                    <option value="{{management.id}}">{{management.title}}</option>
-                {% endif %}
-            {% endfor %}    
-        </select>
-        <input type="submit" value="{% trans 'Найти' %}" class="btn__edit">
-    </form>
-    <div class="pagination">
-        {% for pg in paginator.page_range %}
-            {% if pg|stringformat:"i" == page %}
-                <span class="current_page" onclick="setPage('{{ pg }}')">
-                    {{ pg }}
-                </span>
+            {% if management.id|stringformat:"i" == ft_management %}
+            <option value="{{management.id}}" selected>{{management.title}}</option>
             {% else %}
-                <span class="page" onclick="setPage('{{ pg }}')">
-                    {{ pg }}
-                </span>
-            {% endif %}    
-        {% endfor %}    
+            <option value="{{management.id}}">{{management.title}}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
     </div>
+    <div class="col-auto">
+        <input type="submit" value="{% trans 'Найти' %}" class="btn btn-primary btn-sm t-5">
+    </div>
+</form>
+<ul class="pagination justify-content-center">
+    {% for pg in paginator.page_range %}
+    {% if pg|stringformat:"i" == page %}
+    <li class="page-item active" onclick="setPage('{{ pg }}')">
+        {{ pg }}
+    </li>
+    {% else %}
+    <li class="page-item" onclick="setPage('{{ pg }}')">
+        {{ pg }}
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>
 {% endblock %}
 
 {% block content %}
-    <div class="scroll__panel">
-        <table class="main__table">
-            <colgroup span="6">
-                <col style="width: 50px">
-                <col style="width: 50px">
-                <col style="width: 90px">
-                <col style="width: 350px">
-                <col style="width: 300px">
-                <col style="width: 300px">
-                <col style="width: 150px">
-                <col style="width: 150px">
-            </colgroup>
-            <thead>
-                <tr>
-                    <th>№</th>
-                    <th onclick="let form = document.forms.filter_and_order; form.order_by.value='number'; form.submit();">
-                        {% trans 'Номер' %} {% if order_by == 'number' %} ▲ {% endif %}
-                    </th>
-                    <th onclick="let form = document.forms.filter_and_order; form.order_by.value='date_enter'; form.submit();">
-                        {% trans 'Дата выдачи' %} {% if order_by == 'date_enter' %} ▲ {% endif %}
-                    </th>
-                    <th onclick="let form = document.forms.filter_and_order; form.order_by.value='department'; form.submit();">
-                        {% trans 'Подразделение' %} {% if order_by == 'department' %} ▲ {% endif %}
-                    </th>
-                    <th onclick="let form = document.forms.filter_and_order; form.order_by.value='management'; form.submit();">
-                        {% trans 'Служба' %} {% if order_by == 'management' %} ▲ {% endif %}
-                    </th>
-                    <th onclick="let form = document.forms.filter_and_order; form.order_by.value='first_name'; form.submit();">
-                        {% trans 'Ф.И.О.' %} {% if order_by == 'first_name' %} ▲ {% endif %}
-                    </th>
-                    <th onclick="let form = document.forms.filter_and_order; form.order_by.value='degree'; form.submit();">
-                        {% trans 'звание' %} {% if order_by == 'degree' %} ▲ {% endif %}
-                    </th>
-                    <th onclick="let form = document.forms.filter_and_order; form.order_by.value='job'; form.submit();">
-                        {% trans 'должность' %} {% if order_by == 'job' %} ▲ {% endif %}
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for holiday in holidays %}
-                <tr>
-                    <td>
-                        <a href="{% url 'detail' pk=holiday.pk %}">{{ forloop.counter }}</a>
-                    </td>
-                    <td>
-                        <a href="{% url 'detail' pk=holiday.pk %}">{{ holiday.number }}</a>
-                    </td>
-                    <td>
-                        <a href="{% url 'detail' pk=holiday.pk %}">{{ holiday.date_enter|date:"d.m.Y" }}</a>
-                    </td>
-                    <td>
-                        <a href="{% url 'detail' pk=holiday.pk %}">{{ holiday.department }}</a> 
-                    </td>
-                    <td>
-                        <a href="{% url 'detail' pk=holiday.pk %}">{{ holiday.management }}</a>
-                    </td>
-                    <td>
-                        <a href="{% url 'detail' pk=holiday.pk %}">
-                            {{ holiday.last_name|capfirst}} {{ holiday.first_name|capfirst }} {{ holiday.middle_name|capfirst }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'detail' pk=holiday.pk %}">{{ holiday.degree }}</a>
-                    </td>
-                    <td>
-                        <a href="{% url 'detail' pk=holiday.pk %}">{{ holiday.job }}</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>    
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">№</th>
+            <th scope="col"
+                onclick="let form = document.forms.filter_and_order; form.order_by.value='number'; form.submit();">
+                {% trans 'Номер' %} {% if order_by == 'number' %} ▲ {% endif %}
+            </th>
+            <th scope="col"
+                onclick="let form = document.forms.filter_and_order; form.order_by.value='date_enter'; form.submit();">
+                {% trans 'Дата выдачи' %} {% if order_by == 'date_enter' %} ▲ {% endif %}
+            </th>
+            <th scope="col"
+                onclick="let form = document.forms.filter_and_order; form.order_by.value='department'; form.submit();">
+                {% trans 'Подразделение' %} {% if order_by == 'department' %} ▲ {% endif %}
+            </th>
+            <th scope="col"
+                onclick="let form = document.forms.filter_and_order; form.order_by.value='management'; form.submit();">
+                {% trans 'Служба' %} {% if order_by == 'management' %} ▲ {% endif %}
+            </th>
+            <th scope="col"
+                onclick="let form = document.forms.filter_and_order; form.order_by.value='first_name'; form.submit();">
+                {% trans 'Ф.И.О.' %} {% if order_by == 'first_name' %} ▲ {% endif %}
+            </th>
+            <th scope="col"
+                onclick="let form = document.forms.filter_and_order; form.order_by.value='degree'; form.submit();">
+                {% trans 'звание' %} {% if order_by == 'degree' %} ▲ {% endif %}
+            </th>
+            <th scope="col"
+                onclick="let form = document.forms.filter_and_order; form.order_by.value='job'; form.submit();">
+                {% trans 'должность' %} {% if order_by == 'job' %} ▲ {% endif %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for holiday in holidays %}
+        <tr>
+            <td>
+                <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">{{ forloop.counter }}</a>
+            </td>
+            <td>
+                <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">{{ holiday.number }}</a>
+            </td>
+            <td>
+                <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">{{ holiday.date_enter|date:"d.m.Y" }}</a>
+            </td>
+            <td>
+                <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">{{ holiday.department|default_if_none:"" }}</a>
+            </td>
+            <td>
+                <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">{{ holiday.management|default_if_none:"" }}</a>
+            </td>
+            <td>
+                <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">
+                    {{ holiday.last_name|capfirst}} {{ holiday.first_name|capfirst }} {{ holiday.middle_name|capfirst }}
+                </a>
+            </td>
+            <td>
+                <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">{{ holiday.degree|default_if_none:"" }}</a>
+            </td>
+            <td>
+                <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">{{ holiday.job }}</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
 {% block js %}
-<script type="text/javascript"> 
+<script type="text/javascript">
     function setPage(pg) {
-        let form = document.forms.filter_and_order; 
-        form.page.value=pg; 
+        let form = document.forms.filter_and_order;
+        form.page.value = pg;
         form.submit();
     }
- </script>
+</script>
 {% endblock %}

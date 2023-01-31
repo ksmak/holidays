@@ -1,13 +1,12 @@
 # Python modules
 import datetime
 from typing import Any, Optional, Union
+
 # Django modules
-from django.shortcuts import render
 from django.http import (
     HttpRequest,
     HttpResponse,
     Http404,
-    HttpResponseRedirect
 )
 from django.views.generic import (
     ListView,
@@ -30,10 +29,12 @@ from django.core.paginator import (
     PageNotAnInteger,
     EmptyPage
 )
+
 # Project modules
 from .models import Holiday
 from .forms import HolidayForm
 from dictionaries.models import Department, Management
+
 # Thrid part modules
 import os
 from docx import Document
@@ -53,11 +54,12 @@ class HolidayCreateView(
     success_url = '/detail/{id}'
 
     def form_valid(self, form):
-        form.instance.create_user = self.request.user
+        form.instance.create_user = self.request.user.username
         form.instance.create_date = timezone.now()
         return super().form_valid(form)
 
     permission_required = 'main.add_holiday'
+
 
 class HolidayUpdateView(
     LoginRequiredMixin,
@@ -72,11 +74,12 @@ class HolidayUpdateView(
     success_url = '/detail/{id}'
 
     def form_valid(self, form):
-        form.instance.change_user = self.request.user
+        form.instance.change_user = self.request.user.username
         form.instance.change_date = timezone.now()
         return super().form_valid(form)
 
     permission_required = 'main.change_holiday'
+
 
 class HolidayDetailView(LoginRequiredMixin, DetailView):
     """ Holiday detail view """
@@ -123,7 +126,7 @@ class HolidayListView(LoginRequiredMixin, ListView):
         ft_name: str = self.request.GET.get('ft_name', '')
         ft_department: str = self.request.GET.get('ft_department', '')
         ft_management: str = self.request.GET.get('ft_management', '')
-        
+
         q: QuerySet = Holiday.objects.all()
 
         if ft_name:
@@ -132,18 +135,18 @@ class HolidayListView(LoginRequiredMixin, ListView):
             q3: Q = Q(middle_name__istartswith=ft_name)
 
             q = q.filter(q1 | q2 | q3)
-        
+
         if ft_department:
             q = q.filter(department_id=int(ft_department))
 
         if ft_management:
             q = q.filter(management_id=int(ft_management))
-        
+
         return q.order_by(self.get_ordering())
 
     context_object_name = 'holidays'
 
-    def get_context_data (self, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['departments'] = Department.objects.all()
         context['managements'] = Management.objects.all()
@@ -161,21 +164,21 @@ class HolidayListView(LoginRequiredMixin, ListView):
 
 @login_required
 def print_doc(requiest: HttpRequest, pk: int):
-    """ 
-        the method outputs data to the Word 
+    """
+        the method outputs data to the Word
         using the module python-docx
     """
 
     hd = Holiday.objects.get(id=pk)
 
     doc = Document(os.path.join(settings.MEDIA_ROOT, 'blank.docx'))
-    
+
     file_path = os.path.join(settings.MEDIA_ROOT, str(uuid.uuid4()) + '.docx')
 
     fields = [f.name for f in Holiday._meta.get_fields()]
 
     fields.sort(key=len)
-    
+
     fields.reverse()
 
     for field in fields:
@@ -186,7 +189,7 @@ def print_doc(requiest: HttpRequest, pk: int):
             val = val.strftime("%d.%m.%Y")
         else:
             val = str(val)
-        
+
         for paragraph in doc.paragraphs:
             if f"{field}" in paragraph.text:
                 for run in paragraph.runs:
@@ -198,12 +201,15 @@ def print_doc(requiest: HttpRequest, pk: int):
 
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
-            response = HttpResponse(fh.read(), content_type="application/vnd.ms-word")
-            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-        
-        os.remove(file_path)
-        
-        return response
-    
-    raise Http404
+            response = HttpResponse(
+                fh.read(),
+                content_type="application/vnd.ms-word"
+            )
+            response['Content-Disposition'] =\
+                'inline; filename=' + os.path.basename(file_path)
 
+        os.remove(file_path)
+
+        return response
+
+    raise Http404

@@ -1,5 +1,6 @@
 # Django modules
 from django.urls import path
+
 # Project modules
 from .views import (
     HolidayCreateView,
@@ -9,6 +10,7 @@ from .views import (
     HolidayListView,
     print_doc
 )
+
 
 urlpatterns = [
     path('', HolidayListView.as_view(), name='list'),

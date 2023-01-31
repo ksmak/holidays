@@ -1,27 +1,34 @@
 {% load static %}
 {% load i18n %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
     <title>{% block title %}My amazing site{% endblock %}</title>
 </head>
 
 <body>
-    <div class="content">
+    <div class="container bg-light">
         {% get_current_language as LANGUAGE_CODE %}
         {% get_available_languages as LANGUAGES %}
         {% get_language_info_list for LANGUAGES as languages %}
-        <div class="languages">
+        <div class="d-flex justify-content-end">
             {% for language in languages %}
-            <form class="lang__box" action="{% url 'set_language' %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="language" value="{{ language.code }}">
-                <input type="submit" value="{{ language.code }}">
-            </form>
+            <div class="p-1">
+                <form class="lang__box" action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="language" value="{{ language.code }}">
+                    {% buttons %}
+                    <input type="submit" value="{{ language.code }}" class="btn btn-primary btn-sm">
+                    {% endbuttons %}
+                </form>
+            </div>
             {% endfor %}
         </div>
-        <div id="toolbar" class="toolbar">
+        <div id="toolbar">
             {% block toolbar %}{% endblock %}
         </div>
         <div id="content">

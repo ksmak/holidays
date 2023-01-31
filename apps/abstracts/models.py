@@ -13,7 +13,7 @@ class AbstractDictionary(models.Model):
 
     def __str__(self) -> str:
         return self.title
-    
+
 
 class AbstractModel(models.Model):
     """ Abstract Model """

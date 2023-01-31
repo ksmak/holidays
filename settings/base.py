@@ -26,6 +26,7 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'debug_toolbar',
+    'bootstrap5',
 ]
 
 PROJECT_APPS = [
@@ -92,7 +93,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'kk'
 
 LANGUAGES = [
     ('ru', _('Russian')),     
@@ -159,9 +160,9 @@ SHELL_PLUS_MODEL_ALIASES = {
         'CustomUser': 'U',
     },
     'dictionaries': {
-        'Department': 'D',
-        'Management': 'M',
-        'Degree': 'D',
+        'Department': 'Dep',
+        'Management': 'Man',
+        'Degree': 'Deg',
     },
     'main': {
         'Holiday': 'H',

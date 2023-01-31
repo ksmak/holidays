@@ -2,14 +2,19 @@
 
 {% load i18n %}
 
+{% load bootstrap5 %}
 
 {% block title %}{% blocktrans %}Удаление документа{% endblocktrans %}{% endblock %}
 
 {% block content %}
-    <h1>{% trans 'Удалить данный документ?' %}</h1>
-    <form method="post" class="delete__form">
-        {% csrf_token %}
-        <input type="submit" value="{% trans 'Удалить' %}" class="btn__delete">
-        <button onclick="window.history.back();" class="btn__escape" type="button">{% trans 'Отмена' %}</button>
-    </form> 
+    <h1 class="text-center">{% trans 'Удалить данный документ?' %}</h1>
+    <div class="row justify-content-center">
+        <form method="post" class="col-auto">
+            {% csrf_token %}
+            {% buttons %}
+                <input type="submit" value="{% trans 'Удалить' %}" class="btn btn-danger">
+                <button onclick="window.history.back();" class="btn btn-secondary" type="button">{% trans 'Отмена' %}</button>
+            {% endbuttons %}
+        </form> 
+    </div>
 {% endblock %}

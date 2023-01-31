@@ -2,108 +2,104 @@
 
 {% load i18n %}
 
+{% load bootstrap5 %}
+
 {% block title %}{% blocktrans %}Отпускные удостоверения{% endblocktrans %}{% endblock %}
 
 {% block toolbar %}
-    <a href="{% url 'edit' pk=object.pk %}">
-        <button class="btn__edit">
-            {% trans 'Редактировать' %}
-        </button>
-    </a>
-    <a href="{% url 'print' pk=object.pk %}">
-        <button class="btn__print">
-            {% trans 'Вывести в Word' %}
-        </button>
-    </a>
-    <a href="{% url 'delete' pk=object.pk %}">
-        <button class="btn__delete">
-            {% trans 'Удалить' %}
-        </button>
-    </a>
-    <a href="/">
-        <button class="btn__escape">
-            {% trans 'Закрыть' %}
-        </button>
-    </a>
-    <h1>{% trans 'Отпускное удостоверение' %}</h1>
-    <hr>
+{% buttons %}
+<a href="{% url 'edit' pk=object.pk %}" class="btn btn-primary">
+    {% trans 'Редактировать' %}
+</a>
+<a href="{% url 'print' pk=object.pk %}" class="btn btn-success">
+    {% trans 'Вывести в Word' %}
+</a>
+<a href="{% url 'delete' pk=object.pk %}" class="btn btn-danger">
+    {% trans 'Удалить' %}
+</a>
+<a href="/" class="btn btn-secondary">
+    {% trans 'Закрыть' %}
+</a>
+{% endbuttons %}
+<h1 class="text-center">{% trans 'Отпускное удостоверение' %}</h1>
+<hr>
 {% endblock %}
 
 {% block content %}
-    <div class="card">
-        <div class="line">
-            <span class="label">
-                №: 
-            </span>
-            {{object.number}}
-        </div>
-        <div class="line">
-            <span class="label">
-                {% trans 'Дата выдачи:' %}
-            </span>
-            {{object.date_enter|date:"d.m.Y"}}
-        </div>
-        <div class="line">
-            <span class="label">
-                {% trans 'Дата отпуска:' %}
-            </span>
-            {{object.date_start|date:"d.m.Y"}} - {{object.date_end|date:"d.m.Y"}}
-        </div>
-        <div class="line">
-            <span class="label">
-                {% trans 'Подразделение:' %}
-            </span>
-            {{object.department}}
-        </div>
-        <div class="line">
-            <span class="label">
-                {% trans 'Служба:' %}
-            </span>
-            {{object.management}}
-        </div>
-        <div class="line">
-            <span class="label">
-                {% trans 'Фамилия:' %}
-            </span>
-            {{object.last_name|title}}
-        </div>
-        <div class="line">
-            <span class="label">
-                {% trans 'Имя:' %}
-            </span>
-            {{object.first_name|title}}
-        </div>
-        <div class="line">
-            <span class="label">
-                {% trans 'Отчество:' %}
-            </span>
-            {{object.middle_name|title}}
-        </div>
-        <div class="line">
-            <span class="label">
-                {% trans 'Звание:' %}
-            </span>
-            {{object.degree}}
-        </div>
-        <div class="line">
-            <span class="label">
-                {% trans 'Должность:' %}
-            </span>
-            {{object.job}}
-        </div>
-        <div class="line">
-            <span class="label">
-                {% trans 'Направление:' %}
-            </span>
-            {{object.place}}
-        </div>
+<div class="card">
+    <div class="card-body">
+        <span class="fw-bold">
+            №:
+        </span>
+        {{object.number}}
     </div>
-    <div class="card__info">
-        <div>
-            {% trans 'Создан:' %} {{object.create_user|default:""}}, {{object.create_date|date:"d.m.Y H:i:s"}}
-        </div>
-        <div>
-            {% trans 'Изменен:' %} {{object.change_user|default:""}}, {{object.change_date|date:"d.m.Y H:i:s"}}
-        </div>
+    <div class="card-body">
+        <span class="fw-bold">
+            {% trans 'Дата выдачи:' %}
+        </span>
+        {{object.date_enter|date:"d.m.Y"}}
     </div>
+    <div class="card-body">
+        <span class="fw-bold">
+            {% trans 'Дата отпуска:' %}
+        </span>
+        {{object.date_start|date:"d.m.Y"}} - {{object.date_end|date:"d.m.Y"}}
+    </div>
+    <div class="card-body">
+        <span class="fw-bold">
+            {% trans 'Подразделение:' %}
+        </span>
+        {{object.department|default_if_none:""}}
+    </div>
+    <div class="card-body">
+        <span class="fw-bold">
+            {% trans 'Служба:' %}
+        </span>
+        {{object.management|default_if_none:""}}
+    </div>
+    <div class="card-body">
+        <span class="fw-bold">
+            {% trans 'Фамилия:' %}
+        </span>
+        {{object.last_name|title}}
+    </div>
+    <div class="card-body">
+        <span class="fw-bold">
+            {% trans 'Имя:' %}
+        </span>
+        {{object.first_name|title}}
+    </div>
+    <div class="card-body">
+        <span class="fw-bold">
+            {% trans 'Отчество:' %}
+        </span>
+        {{object.middle_name|title}}
+    </div>
+    <div class="card-body">
+        <span class="fw-bold">
+            {% trans 'Звание:' %}
+        </span>
+        {{object.degree|default_if_none:""}}
+    </div>
+    <div class="card-body">
+        <span class="fw-bold">
+            {% trans 'Должность:' %}
+        </span>
+        {{object.job}}
+    </div>
+    <div class="card-body">
+        <span class="fw-bold">
+            {% trans 'Направление:' %}
+        </span>
+        {{object.place}}
+    </div>
+</div>
+<div class="text-end">
+    <div>
+        {% trans 'Создан:' %} {{object.create_user|default:""}}, {{object.create_date|date:"d.m.Y H:i:s"}}
+    </div>
+    <div>
+        {% trans 'Изменен:' %} {{object.change_user|default:""}}, {{object.change_date|date:"d.m.Y H:i:s"}}
+    </div>
+</div>
 {% endblock %}

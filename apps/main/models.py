@@ -2,6 +2,7 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
 # Project modules
 from abstracts.models import AbstractModel
 from dictionaries.models import (
@@ -89,15 +90,15 @@ class Holiday(AbstractModel):
     def save(self, *args, **kwargs):
         if self.first_name:
             self.first_name = self.first_name.capitalize()
-        
+
         if self.last_name:
             self.last_name = self.last_name.capitalize()
-        
+
         if self.middle_name:
             self.middle_name = self.middle_name.capitalize()
-        
+
         return super().save(*args, **kwargs)
-    
+
     class Meta:
         verbose_name = _('отпускное удостоверение')
         verbose_name_plural = _('отпускные удостоверения')

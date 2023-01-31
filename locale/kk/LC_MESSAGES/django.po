@@ -18,6 +18,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
+msgid "Выход из системы"
+msgstr "Жүйеден шығу"
+
+msgid "Доступ не разрешен"
+msgstr "Рұқсат етілмеген"
+
+msgid "Спасибо за ваше проведенное время на этом сайте."
+msgstr "Осы сайтқа уақыт бөлгеніңізге рахмет."
+
+msgid "Войти снова"
+msgstr "Қайтадан кіріңіз"
+
 msgid "справочники"
 msgstr "анықтамалар"
 
