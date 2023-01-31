@@ -1,8 +1,8 @@
 # Django modules
 from django import forms
+
 # Project modules
 from .models import Holiday
-from dictionaries.models import Department, Management
 
 
 class HolidayForm(forms.ModelForm):

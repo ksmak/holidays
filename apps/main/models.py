@@ -33,13 +33,13 @@ class Holiday(AbstractModel):
         default=timezone.now
     )
 
-    first_name = models.CharField(
-        verbose_name=_('имя'),
+    last_name = models.CharField(
+        verbose_name=_('фамилия'),
         max_length=150
     )
 
-    last_name = models.CharField(
-        verbose_name=_('фамилия'),
+    first_name = models.CharField(
+        verbose_name=_('имя'),
         max_length=150
     )
 

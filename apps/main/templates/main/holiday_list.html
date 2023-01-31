@@ -40,9 +40,9 @@
             <option value="">{% trans 'по подразделению' %}</option>
             {% for department in departments %}
             {% if department.id|stringformat:"i" == ft_department %}
-            <option value="{{department.id}}" selected>{{ department.title }}</option>
+            <option value="{{department.id}}" selected>{% trans department.title %}</option>
             {% else %}
-            <option value="{{department.id}}">{{ department.title }}</option>
+            <option value="{{department.id}}">{% trans department.title %}</option>
             {% endif %}
             {% endfor %}
         </select>
@@ -52,9 +52,9 @@
             <option value="">{% trans 'по службе' %}</option>
             {% for management in managements %}
             {% if management.id|stringformat:"i" == ft_management %}
-            <option value="{{management.id}}" selected>{{management.title}}</option>
+            <option value="{{management.id}}" selected>{% trans management.title %}</option>
             {% else %}
-            <option value="{{management.id}}">{{management.title}}</option>
+            <option value="{{management.id}}">{% trans management.title %}</option>
             {% endif %}
             {% endfor %}
         </select>
@@ -126,10 +126,14 @@
                 <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">{{ holiday.date_enter|date:"d.m.Y" }}</a>
             </td>
             <td>
-                <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">{{ holiday.department|default_if_none:"" }}</a>
+                <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">
+                    {% trans holiday.department.title %}
+                </a>
             </td>
             <td>
-                <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">{{ holiday.management|default_if_none:"" }}</a>
+                <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">
+                    {% trans holiday.management.title %}
+                </a>
             </td>
             <td>
                 <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">
@@ -137,7 +141,9 @@
                 </a>
             </td>
             <td>
-                <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">{{ holiday.degree|default_if_none:"" }}</a>
+                <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">
+                    {% trans holiday.degree.title %}
+                </a>
             </td>
             <td>
                 <a style="text-decoration: none; color: black;" href="{% url 'detail' pk=holiday.pk %}">{{ holiday.job }}</a>

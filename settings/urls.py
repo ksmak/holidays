@@ -1,6 +1,6 @@
 # Django modules
 from django.contrib import admin
-from django.urls import path, include, re_path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import (
@@ -10,7 +10,7 @@ from django.contrib.auth.views import (
 
 
 urlpatterns = [
-    path('accounts/login/', LoginView.as_view(), name='login'),
+    path('accounts/login/', LoginView.as_view(template_name='login.html'), name='login'),
     path('accounts/logout/', LogoutView.as_view(template_name='logged_out.html'), name='logout'),
     path('', include('main.urls')),
     path('admin/', admin.site.urls),
