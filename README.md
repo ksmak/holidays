@@ -1,6 +1,10 @@
 # holidays
 
-Установка приложения на Windows
+Приложения для учета отпускных удостоверений выдаваемых сотрудникам при нахождении в отпуске, имеется возможность печати данных документв в MS Word. Приложение поддерживает два языка (русский, казахский)
+
+
+
+Порядок установки приложения на Windows платформах
 
 1. Установить python  в папку C:\Python
 2. Установить компоненты IIS, CGI
@@ -14,10 +18,10 @@
    Аргументы: C:\Python\Lib\site-packages\wfastcgi.py
    Переменные среды (список):
 
-   имя: WSGI_HANDLERWSGI_HANDLER	значение: django.core.wsgi.get_wsgi_application()django.core.wsgi.get_wsgi_application()
+   имя: WSGI_HANDLER значение: django.core.wsgi.get_wsgi_application()
 
-   имя: PYTHONPATHPYTHONPATH значение: C:\sites\holidays
+   имя: PYTHONPATH значение: C:\sites\holidays
 
    имя: DJANGO_SETTINGS_MODULE значение: settings.base
-9. В диспечере служб IIS также добавить сайт указав имя и полный путь к папке приложения, порт указать 8000
-10. Создать правило для порта 8000 в брандмауэере windows
+9. В диспечере служб IIS также добавить сайт указав имя и полный путь к папке приложения, порт указать (например 8001)
+10. Создать правило для выбранного порта в брандмауэере windows
