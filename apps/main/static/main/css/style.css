@@ -1,0 +1,19 @@
+.page-item {
+    border: 1px solid gray;
+    border-radius: 5px;
+    color: blue;
+    padding: 5px;
+    margin-right: 2px;
+    cursor: pointer;
+}
+.page-item.active {
+    color: white;
+    background-color: gray;
+}
+table thead th {
+    cursor: pointer;
+}
+.user_edit_info {
+    font-size: 9pt;
+    font-weight: 700;
+}

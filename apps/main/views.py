@@ -29,6 +29,7 @@ from django.core.paginator import (
     PageNotAnInteger,
     EmptyPage
 )
+from django.utils.translation import gettext
 
 # Project modules
 from .models import Holiday
@@ -187,8 +188,10 @@ def print_doc(requiest: HttpRequest, pk: int):
 
         if type(val) == datetime.date:
             val = val.strftime("%d.%m.%Y")
+        elif val == None:
+            val = ""
         else:
-            val = str(val)
+            val = gettext(str(val))
 
         for paragraph in doc.paragraphs:
             if f"{field}" in paragraph.text:

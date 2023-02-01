@@ -49,13 +49,13 @@
         <span class="fw-bold">
             {% trans 'Подразделение:' %}
         </span>
-        {{object.department|default_if_none:""}}
+        {% trans object.department.title %}
     </div>
     <div class="card-body">
         <span class="fw-bold">
             {% trans 'Служба:' %}
         </span>
-        {{object.management|default_if_none:""}}
+        {% trans object.management.title %}
     </div>
     <div class="card-body">
         <span class="fw-bold">
@@ -79,7 +79,7 @@
         <span class="fw-bold">
             {% trans 'Звание:' %}
         </span>
-        {{object.degree|default_if_none:""}}
+        {% trans object.degree.title %}
     </div>
     <div class="card-body">
         <span class="fw-bold">
@@ -89,17 +89,17 @@
     </div>
     <div class="card-body">
         <span class="fw-bold">
-            {% trans 'Направление:' %}
+            {% trans 'Место выезда:' %}
         </span>
         {{object.place}}
     </div>
 </div>
-<div class="text-end">
+<div class="user_edit_info text-end">
     <div>
-        {% trans 'Создан:' %} {{object.create_user|default:""}}, {{object.create_date|date:"d.m.Y H:i:s"}}
+        created: {{object.create_user|default:""}}, {{object.create_date|date:"d.m.Y H:i:s"}}
     </div>
     <div>
-        {% trans 'Изменен:' %} {{object.change_user|default:""}}, {{object.change_date|date:"d.m.Y H:i:s"}}
+        edited: {{object.change_user|default:""}}, {{object.change_date|date:"d.m.Y H:i:s"}}
     </div>
 </div>
 {% endblock %}

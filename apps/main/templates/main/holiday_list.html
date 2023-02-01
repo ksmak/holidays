@@ -37,7 +37,7 @@
     </div>
     <div class="col-auto">
         <select class="form-control form-control-sm" name="ft_department" id="ft_department">
-            <option value="">{% trans 'по подразделению' %}</option>
+            <option value="">--- {% trans 'по подразделению' %} ---</option>
             {% for department in departments %}
             {% if department.id|stringformat:"i" == ft_department %}
             <option value="{{department.id}}" selected>{% trans department.title %}</option>
@@ -49,7 +49,7 @@
     </div>
     <div class="col-auto">
         <select class="form-control form-control-sm" name="ft_management" id="ft_management">
-            <option value="">{% trans 'по службе' %}</option>
+            <option value="">--- {% trans 'по службе' %} ---</option>
             {% for management in managements %}
             {% if management.id|stringformat:"i" == ft_management %}
             <option value="{{management.id}}" selected>{% trans management.title %}</option>
@@ -63,19 +63,21 @@
         <input type="submit" value="{% trans 'Найти' %}" class="btn btn-primary btn-sm t-5">
     </div>
 </form>
-<ul class="pagination justify-content-center">
-    {% for pg in paginator.page_range %}
-    {% if pg|stringformat:"i" == page %}
-    <li class="page-item active" onclick="setPage('{{ pg }}')">
-        {{ pg }}
-    </li>
-    {% else %}
-    <li class="page-item" onclick="setPage('{{ pg }}')">
-        {{ pg }}
-    </li>
-    {% endif %}
-    {% endfor %}
-</ul>
+<nav>
+    <ul class="pagination justify-content-center">
+        {% for pg in paginator.page_range %}
+        {% if pg|stringformat:"i" == page %}
+        <li class="page-item active" onclick="setPage('{{ pg }}')">
+            {{ pg }}
+        </li>
+        {% else %}
+        <li class="page-item" onclick="setPage('{{ pg }}')">
+            {{ pg }}
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+</nav>
 {% endblock %}
 
 {% block content %}
@@ -152,6 +154,9 @@
         {% endfor %}
     </tbody>
 </table>
+<div>
+    {% trans 'Всего:' %} {{ paginator.count }}
+</div>
 {% endblock %}
 {% block js %}
 <script type="text/javascript">

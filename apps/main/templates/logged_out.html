@@ -1,11 +1,16 @@
 {% extends "main/base.html" %}
-{% block title %}Выход из системы{% endblock %}
+
+{% load i18n %}
+
+{% block title %}{% blocktrans %} Выход из системы {% endblocktrans %}{% endblock %}
+
 {% block toolbar %}
-    <h1 class="text-center">Доступ не разрешен</h1>
+    <h1 class="text-center">{% trans 'Выход выполнен' %}</h1>
     <hr>
 {% endblock %}
+
 {% block content %}
-    <p>Спасибо за ваше проведенное время на этом сайте.</p>
+    <p>{% trans 'Благодарим вас за время, проведенное на этом сайте.' %}</p>
     <br>
-    <p><a href="/">Войти снова</a></p>
+    <p><a href="/">{% trans 'Войти снова' %}</a></p>
 {% endblock %}

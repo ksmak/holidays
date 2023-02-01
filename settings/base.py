@@ -18,6 +18,7 @@ DEBUG = config('DEBUG', cast=str)
 ALLOWED_HOSTS = ['*']
 
 DJANGO_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -93,7 +94,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = 'kk'
+LANGUAGE_CODE = 'ru'
 
 LANGUAGES = [
     ('ru', _('Russian')),     

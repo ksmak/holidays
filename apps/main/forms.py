@@ -4,8 +4,11 @@ from django import forms
 # Project modules
 from .models import Holiday
 
+# Third part modules
+from modeltranslation.forms import TranslationModelForm
 
-class HolidayForm(forms.ModelForm):
+
+class HolidayForm(TranslationModelForm):
     """ Holiday form """
     class Meta:
         model = Holiday

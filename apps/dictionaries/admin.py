@@ -1,4 +1,5 @@
 from django.contrib import admin
+from modeltranslation.admin import TranslationAdmin
 from .models import (
     Department,
     Management,
@@ -6,102 +7,18 @@ from .models import (
 )
 
 
-class DepartmentAdmin(admin.ModelAdmin):
-    model = Department
+class DepartmentAdmin(TranslationAdmin):
+    pass
 
-    list_display = (
-        'title',
-    )
+   
+class ManagementAdmin(TranslationAdmin):
+    pass
 
-    add_fieldsets = (
-        (None, {
-            'fields': (
-                'title',
-            )
-        }),
-    )
+   
+class DegreeAdmin(TranslationAdmin):
+    pass
 
-    fieldsets = (
-        (None, {
-            'fields': (
-                'title',
-            )
-        }),
-    )
-
-    search_fields = (
-        'title',
-    )
-
-    ordering = (
-        'title',
-    )
-
-
-class ManagementAdmin(admin.ModelAdmin):
-    model = Management
-
-    list_display = (
-        'title',
-    )
-
-    add_fieldsets = (
-        (None, {
-            'fields': (
-                'title',
-            )
-        }),
-    )
-
-    fieldsets = (
-        (None, {
-            'fields': (
-                'title',
-            )
-        }),
-    )
-
-    search_fields = (
-        'title',
-    )
-
-    ordering = (
-        'title',
-    )
-
-
-class DegreeAdmin(admin.ModelAdmin):
-    model = Degree
-
-    list_display = (
-        'title',
-    )
-
-    add_fieldsets = (
-        (None, {
-            'fields': (
-                'title',
-            )
-        }),
-    )
-
-    fieldsets = (
-        (None, {
-            'fields': (
-                'title',
-            )
-        }),
-    )
-
-    search_fields = (
-        'title',
-    )
-
-    ordering = (
-        'title',
-    )
-
-
+    
 admin.site.register(Department, DepartmentAdmin)
 admin.site.register(Management, ManagementAdmin)
 admin.site.register(Degree, DegreeAdmin)

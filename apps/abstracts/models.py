@@ -20,7 +20,8 @@ class AbstractModel(models.Model):
 
     create_date = models.DateTimeField(
         verbose_name=_('создан'),
-        null=True
+        null=True,
+        blank=True
     )
 
     create_user = models.CharField(
@@ -32,7 +33,8 @@ class AbstractModel(models.Model):
 
     change_date = models.DateTimeField(
         verbose_name=_('изменен'),
-        null=True
+        null=True,
+        blank=True
     )
 
     change_user = models.CharField(

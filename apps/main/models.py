@@ -1,6 +1,7 @@
 # Django modules
 from django.db import models
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 # Project modules
@@ -86,8 +87,14 @@ class Holiday(AbstractModel):
 
     def __str__(self) -> str:
         return f"№{self.number} - {self.date_enter}"
+    
+    def clean(self) -> None:
+        if self.date_start > self.date_end:
+            raise ValidationError(_('дата начала должно быть меньше даты конца'))
 
     def save(self, *args, **kwargs):
+        self.full_clean()
+
         if self.first_name:
             self.first_name = self.first_name.capitalize()
 
